@@ -1,4 +1,4 @@
-# Latent Diffusion Models
+# Forked - AV Applications: Latent Diffusion Models
 [arXiv](https://arxiv.org/abs/2112.10752) | [BibTeX](#bibtex)
 
 <p align="center">
@@ -38,7 +38,7 @@ and activated with:
 
 ```
 conda env create -f environment.yaml
-conda activate ldm
+conda activate ldm-shounak
 ```
 
 # Pretrained Models
