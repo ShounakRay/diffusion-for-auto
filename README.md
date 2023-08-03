@@ -14,6 +14,8 @@
 </p>
 
 ## Requirements
+
+### Initialize Conda Environment
 A suitable [conda](https://conda.io/) environment named `ldm` can be created
 and activated with:
 
@@ -22,6 +24,7 @@ conda env create -f environment.yaml
 conda activate ldm-shounak
 ```
 
+### Retrieve a Pretrained VAE (for now)
 You also need to install the model checkpoint for the pre-trained autoencoder we're going to use.
 From the root directory of this repository:
 
@@ -31,11 +34,25 @@ cd models/first_stage_models/vq-f4
 unzip -o model.zip
 ```
 
+### Confirm LDM Training Dataset Paths
+#### References to train and validation sets
 Lastly, ensure that the driving data is in the right location. We will use the waymo perception dataset as an example. Specifically, the following two files should exist (with respect to the root directory):
 ```
 data/autodrive/waymo_train.txt
 data/autodrive/waymo_val.txt
 ```
+Each text file is a list of all the image-paths that belong to the training and validation sets. For example, the first few lines of ``data/autodrive/waymo_train.txt`` looks like:
+```
+00153297.jpg
+00075449.jpg
+00120038.jpg
+00062245.jpg
+00055714.jpg
+...
+```
+Notice that there aren't any other prefixes to each file path. Ensure that you don't add a prefix here. See the docstrings above ``AUTOWaymoTrain`` and ``AUTOWaymoValidation`` located inside ``ldm/data/autodrive.py`` for how these text files were created.
+
+#### References to the original data
 Furthermore, the driving dataset should exist as well in a particular location as defined in ``AUTOWaymoTrain`` and ``AUTOWaymoValidation`` located inside ``ldm/data/autodrive.py``.
 The current, hardcoded ``data_root`` is 
 ```/scratch/groups/mykel/shounak_files/DATASETS/waymo/all```.
