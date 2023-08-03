@@ -22,6 +22,10 @@ from ldm.util import instantiate_from_config
 
 
 # NOTE: changed default log path to be in $SCRATCH/LOGS-diffusion-for-auto
+# TODO: Make sure you change LOG_PATH to your own path
+
+LOG_PATH = "/scratch/users/shounak/LOGS-diffusion-for-auto"
+
 def get_parser(**parser_kwargs):
     def str2bool(v):
         if isinstance(v, bool):
@@ -110,9 +114,10 @@ def get_parser(**parser_kwargs):
         "-l",
         "--logdir",
         type=str,
-        default="$SCRATCH/LOGS-diffusion-for-auto",
+        default=LOG_PATH,
         help="directory for logging dat shit",
     )
+    # https://stackoverflow.com/questions/57676475/how-do-i-access-in-python-the-link-text-of-a-symlink
     parser.add_argument(
         "--scale_lr",
         type=str2bool,

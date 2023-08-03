@@ -15,6 +15,9 @@
 
 ## Requirements
 
+### Set your own LOG_PATH
+In line 27 of ``main.py``, change ``LOG_PATH`` to the location on your system where you want your logs to be stored. For Sherlock users, make sure this is outside your ``$HOME`` directory.
+
 ### Initialize Conda Environment
 A suitable [conda](https://conda.io/) environment named `ldm` can be created
 and activated with:
