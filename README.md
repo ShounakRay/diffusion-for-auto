@@ -60,22 +60,12 @@ The current, hardcoded ``data_root`` is
 ---
 ---
 
-## Unconditional Models
+# Training autoencoder models
+## Using a Pretrained Version
+We've already downloaded a pretrained AE model (SEE ""Retrieve a Pretrained VAE (for now)"" above).
+Visit the original repository for more information
 
-Once you've donwloaded or generated a model checkpoint(s), we also provide a script for sampling from unconditional LDMs. Start it via:
-
-```shell script
-CUDA_VISIBLE_DEVICES=<GPU_ID> python scripts/sample_diffusion.py -r models/ldm/<model_spec>/model.ckpt -l <logdir> -n <\#samples> --batch_size <batch_size> -c <\#ddim steps> -e <\#eta> 
-```
-
-# Train your own LDMs
-
-## Model Training
-
-Logs and checkpoints for trained models are saved to `logs/<START_DATE_AND_TIME>_<config_spec>`.
-
-### Training autoencoder models
-
+## Doing it from scratch
 Configs for training a KL-regularized autoencoder on ImageNet are provided at `configs/autoencoder`.
 Training can be started by running
 ```
@@ -87,8 +77,11 @@ where `config_spec` is one of {`autoencoder_kl_8x8x64`(f=32, d=64), `autoencoder
 For training VQ-regularized models, see the [taming-transformers](https://github.com/CompVis/taming-transformers) 
 repository.
 
-### Training LDMs 
+# Training LDMs
+## Using a Pretrained AV version
+Stay tuned.
 
+## Doing it from scratch
 In ``configs/latent-diffusion/`` we provide configs for training LDMs on the LSUN-, CelebA-HQ, FFHQ and ImageNet datasets. 
 Training can be started by running
 
@@ -108,8 +101,20 @@ Possible ``<config_spec>`` options also include
 - `lsun_churches-ldm-vq-4`(f=8, KL-reg. autoencoder, spatial size 32x32x4),
 - `cin-ldm-vq-8`(f=8, VQ-reg. autoencoder, spatial size 32x32x4).
 
-### Pretrained Autoencoding Models
-We've already downloaded a pretrained AE models; see the original repository for more information
+
+---
+---
+
+# Sampling LDM Model
+
+Once you've downloaded or generated a model checkpoint(s), we also provide a script for sampling from unconditional LDMs. Start it via:
+
+```shell script
+CUDA_VISIBLE_DEVICES=<GPU_ID> python scripts/sample_diffusion.py -r models/ldm/<model_spec>/model.ckpt -l <logdir> -n <\#samples> --batch_size <batch_size> -c <\#ddim steps> -e <\#eta> 
+```
+
+---
+---
 
 ## BibTeX
 
