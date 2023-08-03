@@ -33,7 +33,12 @@ CUDA_VISIBLE_DEVICES=<GPU_ID> python scripts/sample_diffusion.py -r models/ldm/<
 # Train your own LDMs
 
 ## Data preparation
-NULL for now
+
+#### Donwload the necessary autoencoder
+> From root directory of this repository:
+wget -O models/first_stage_models/vq-f4/model.zip https://ommer-lab.com/files/latent-diffusion/vq-f4.zip
+cd models/first_stage_models/vq-f4
+unzip -o model.zip
 
 ## Model Training
 
