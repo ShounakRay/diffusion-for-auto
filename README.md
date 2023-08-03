@@ -61,8 +61,8 @@ unzip -o model.zip
 #### References to train and validation sets
 Lastly, ensure that the driving data is in the right location. We will use the waymo perception dataset as an example. Specifically, the following two files should exist (with respect to the root directory):
 ```
-data/autodrive/waymo_train.txt
-data/autodrive/waymo_val.txt
+data/autodrive/waymo/waymo_train.txt
+data/autodrive/waymo/waymo_val.txt
 ```
 Each text file is a list of all the image-paths that belong to the training and validation sets. For example, the first few lines of ``data/autodrive/waymo_train.txt`` looks like:
 ```
