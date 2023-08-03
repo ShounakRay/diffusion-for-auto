@@ -21,6 +21,7 @@ from ldm.data.base import Txt2ImgIterableBaseDataset
 from ldm.util import instantiate_from_config
 
 
+# NOTE: changed default log path to be in $SCRATCH/LOGS-diffusion-for-auto
 def get_parser(**parser_kwargs):
     def str2bool(v):
         if isinstance(v, bool):
@@ -109,7 +110,7 @@ def get_parser(**parser_kwargs):
         "-l",
         "--logdir",
         type=str,
-        default="logs",
+        default="$SCRATCH/LOGS-diffusion-for-auto",
         help="directory for logging dat shit",
     )
     parser.add_argument(

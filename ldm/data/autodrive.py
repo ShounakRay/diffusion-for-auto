@@ -46,9 +46,12 @@ class AUTOBase(Dataset):
 
         # default to score-sde preprocessing
         img = np.array(image).astype(np.uint8)
+        
+        # TODO: Eliminated center crop (at least for now)
+        # TODO: Remove assertions
+        # CENTER CROP
         crop = min(img.shape[0], img.shape[1])
         h, w, = img.shape[0], img.shape[1]
-        # CENTER CROP
         img = img[(h - crop) // 2:(h + crop) // 2,
               (w - crop) // 2:(w + crop) // 2]
 
@@ -57,7 +60,6 @@ class AUTOBase(Dataset):
         width, height = image.size   # Get dimensions
         assert width == 480 and height == 320, f"Image is not 480x320. Received: width, height={(width, height)}"
 
-        # # TODO: Remove assertion
         # if self.horizontal_size is not None or self.vertical_size is not None:
         #     # SQUISH RESIZE
         #     # image = image.resize((self.size, self.size), resample=self.interpolation)
