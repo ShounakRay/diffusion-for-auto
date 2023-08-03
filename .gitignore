@@ -1,7 +1,7 @@
 # Not the model checkpoints
 *.ckpt
 models/first_stage_models/vq-f4/model.ckpt
-
+src/
 
 ### PROVIDED BY GITHUB ###
 
