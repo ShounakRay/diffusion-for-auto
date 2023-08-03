@@ -23,7 +23,8 @@ and activated with:
 conda env create -f environment.yaml
 conda activate ldm-shounak
 ```
-#### Fix #1
+
+#### An Important Note
 We've included the following packages in the conda environment due to avoid well-known compatibility issues:
 ```shell script
 packaging==21.3
@@ -40,7 +41,6 @@ ImportError: cannot import name 'get_num_classes' from 'torchmetrics.utilities.d
 ```
 If you ever feel the need to manually install them, first get in the conda environment, and prepend your pip install command as follows ``python3 -m pip install <package>==<version>]``.
 
-#### General Fix
 If stuff doesn't run, make sure everything is properly synced with the conda environment:
 ```conda env update --file environment.yaml --prune```
 
