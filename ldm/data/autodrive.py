@@ -89,8 +89,7 @@ find train -maxdepth 1 -type f -name "*.jpg" -print0 | xargs -0 -I {} basename {
 class AUTOWaymoTrain(AUTOBase):
     def __init__(self, **kwargs):
         super().__init__(txt_file="data/autodrive/waymo/waymo_train.txt",
-                        #  data_root="data/autodrive/waymo/all",
-                        data_root="/DATASETS/waymo/all",
+                         data_root="data/autodrive/waymo/all",
                          **kwargs)
 
 """
@@ -100,7 +99,6 @@ find test -maxdepth 1 -type f -name "*.jpg" -print0 | xargs -0 -I {} basename {}
 class AUTOWaymoValidation(AUTOBase):
     def __init__(self, flip_p=0.0, **kwargs):
         super().__init__(txt_file="data/autodrive/waymo/waymo_val.txt",
-                        #  data_root="data/autodrive/waymo/all",
-                        data_root="/DATASETS/waymo/all",
+                         data_root="data/autodrive/waymo/all",
                          flip_p=flip_p,
                          **kwargs)
