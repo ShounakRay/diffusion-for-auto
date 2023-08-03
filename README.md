@@ -24,26 +24,25 @@ conda env create -f environment.yaml
 conda activate ldm-shounak
 ```
 #### Fix #1
-Now, inside this conda environment, run:
+We've included the following packages in the conda environment due to avoid well-known compatibility issues:
 ```shell script
-python3 -m pip install packaging==21.3
+packaging==21.3
+torchmetrics==0.6
 ```
 This is to avoid an error involving PyTorch Lighting.
 This is the error (if you don't have packaging==21.3 on your system):
 ```
 packaging.version.InvalidVersion: Invalid version: '0.10.1,<0.11'
 ```
-
-#### Fix #2
-Also, inside this conda environment, run:
-```shell script
-python3 -m pip install torchmetrics==0.6
-```
-This is to avoid an error involving PyTorch Lighting.
-This is the error (if you don't have torchmetrics==0.6 on your system):
+and if you don't have torchmetrics==0.6 on your system:
 ```
 ImportError: cannot import name 'get_num_classes' from 'torchmetrics.utilities.data'
 ```
+If you ever feel the need to manually install them, first get in the conda environment, and prepend your pip install command as follows ``python3 -m pip install <package>==<version>]``.
+
+#### General Fix
+If stuff doesn't run, make sure everything is properly synced with the conda environment:
+```conda env update --file environment.yaml --prune```
 
 For more information, refer to: <https://github.com/CompVis/latent-diffusion/issues/207#issuecomment-1377329827> as required.
 
