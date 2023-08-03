@@ -57,8 +57,8 @@ Furthermore, the driving dataset should exist as well in a particular location a
 The current, hardcoded ``data_root`` is 
 ```/scratch/groups/mykel/shounak_files/DATASETS/waymo/all```.
 
-––––
-––––
+---
+---
 
 ## Unconditional Models
 
