@@ -17,31 +17,39 @@
 A suitable [conda](https://conda.io/) environment named `ldm` can be created
 and activated with:
 
-```
+```shell script
 conda env create -f environment.yaml
 conda activate ldm-shounak
 ```
 
-## Unconditional Models
-
-We also provide a script for sampling from unconditional LDMs (e.g. LSUN, FFHQ, ...). Start it via
-
-```shell script
-CUDA_VISIBLE_DEVICES=<GPU_ID> python scripts/sample_diffusion.py -r models/ldm/<model_spec>/model.ckpt -l <logdir> -n <\#samples> --batch_size <batch_size> -c <\#ddim steps> -e <\#eta> 
-```
-
-# Train your own LDMs
-
-## Data preparation
-
-#### Donwload the necessary autoencoder
-> From root directory of this repository:
+You also need to install the model checkpoint for the pre-trained autoencoder we're going to use.
+From the root directory of this repository:
 
 ```shell script
 wget -O models/first_stage_models/vq-f4/model.zip https://ommer-lab.com/files/latent-diffusion/vq-f4.zip
 cd models/first_stage_models/vq-f4
 unzip -o model.zip
 ```
+
+Lastly, ensure that the driving data is in the right location. We will use the waymo perception dataset as an example. Specifically, the following two files should exist (with respect to the root directory):
+```
+data/autodrive/waymo_train.txt
+data/autodrive/waymo_val.txt
+```
+Furthermore, the driving dataset should exist as well in a particular location as defined in ``AUTOWaymoTrain`` and ``AUTOWaymoValidation`` located inside ``ldm/data/autodrive.py``.
+The current, hardcoded ``data_root`` is 
+```/scratch/groups/mykel/shounak_files/DATASETS/waymo/all```.
+
+
+## Unconditional Models
+
+Once you've donwloaded or generated a model checkpoint(s), we also provide a script for sampling from unconditional LDMs. Start it via:
+
+```shell script
+CUDA_VISIBLE_DEVICES=<GPU_ID> python scripts/sample_diffusion.py -r models/ldm/<model_spec>/model.ckpt -l <logdir> -n <\#samples> --batch_size <batch_size> -c <\#ddim steps> -e <\#eta> 
+```
+
+# Train your own LDMs
 
 ## Model Training
 
@@ -74,50 +82,15 @@ EXAMPLE COMMAND:
 CUDA_VISIBLE_DEVICES=0,1 python main.py --base configs/latent-diffusion/CUSTOM-ldm-vq-4.yaml -t --gpus 0,1
 ```
 
-where ``<config_spec>`` is one of {`celebahq-ldm-vq-4`(f=4, VQ-reg. autoencoder, spatial size 64x64x3),`ffhq-ldm-vq-4`(f=4, VQ-reg. autoencoder, spatial size 64x64x3),
-`lsun_bedrooms-ldm-vq-4`(f=4, VQ-reg. autoencoder, spatial size 64x64x3),
-`lsun_churches-ldm-vq-4`(f=8, KL-reg. autoencoder, spatial size 32x32x4),`cin-ldm-vq-8`(f=8, VQ-reg. autoencoder, spatial size 32x32x4)}.
+Possible ``<config_spec>`` options also include
+- `celebahq-ldm-vq-4`(f=4, VQ-reg. autoencoder, spatial size 64x64x3)
+- `ffhq-ldm-vq-4`(f=4, VQ-reg. autoencoder, spatial size 64x64x3),
+- `lsun_bedrooms-ldm-vq-4`(f=4, VQ-reg. autoencoder, spatial size 64x64x3),
+- `lsun_churches-ldm-vq-4`(f=8, KL-reg. autoencoder, spatial size 32x32x4),
+- `cin-ldm-vq-8`(f=8, VQ-reg. autoencoder, spatial size 32x32x4).
 
-# Model Zoo 
-
-## Pretrained Autoencoding Models
-All models were trained until convergence (no further substantial improvement in rFID).
-
-| Model                   | rFID vs val | train steps           |PSNR           | PSIM          | Link                                                                                                                                                  | Comments              
-|-------------------------|------------|----------------|----------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|
-| f=4, VQ (Z=8192, d=3)   | 0.58       | 533066 | 27.43  +/- 4.26 | 0.53 +/- 0.21 |     https://ommer-lab.com/files/latent-diffusion/vq-f4.zip                   |  |
-| f=4, VQ (Z=8192, d=3)   | 1.06       | 658131 | 25.21 +/-  4.17 | 0.72 +/- 0.26 | https://heibox.uni-heidelberg.de/f/9c6681f64bb94338a069/?dl=1  | no attention          |
-| f=8, VQ (Z=16384, d=4)  | 1.14       | 971043 | 23.07 +/- 3.99 | 1.17 +/- 0.36 |       https://ommer-lab.com/files/latent-diffusion/vq-f8.zip                     |                       |
-| f=8, VQ (Z=256, d=4)    | 1.49       | 1608649 | 22.35 +/- 3.81 | 1.26 +/- 0.37 |   https://ommer-lab.com/files/latent-diffusion/vq-f8-n256.zip |  
-| f=16, VQ (Z=16384, d=8) | 5.15       | 1101166 | 20.83 +/- 3.61 | 1.73 +/- 0.43 |             https://heibox.uni-heidelberg.de/f/0e42b04e2e904890a9b6/?dl=1                        |                       |
-|                         |            |  |                |               |                                                                                                                                                    |                       |
-| f=4, KL                 | 0.27       | 176991 | 27.53 +/- 4.54 | 0.55 +/- 0.24 |     https://ommer-lab.com/files/latent-diffusion/kl-f4.zip                                   |                       |
-| f=8, KL                 | 0.90       | 246803 | 24.19 +/- 4.19 | 1.02 +/- 0.35 |             https://ommer-lab.com/files/latent-diffusion/kl-f8.zip                            |                       |
-| f=16, KL     (d=16)     | 0.87       | 442998 | 24.08 +/- 4.22 | 1.07 +/- 0.36 |      https://ommer-lab.com/files/latent-diffusion/kl-f16.zip                                  |                       |
- | f=32, KL     (d=64)     | 2.04       | 406763 | 22.27 +/- 3.93 | 1.41 +/- 0.40 |             https://ommer-lab.com/files/latent-diffusion/kl-f32.zip                            |                       |
-
-### Get the models
-
-Running the following script downloads und extracts all available pretrained autoencoding models.   
-```shell script
-bash scripts/download_first_stages.sh
-```
-
-The first stage models can then be found in `models/first_stage_models/<model_spec>`
-
-
-## Misc.
-
-Colab notebook https://colab.research.google.com/drive/1xqzUi2iXQXDqXBHQGP9Mqt2YrYW6cx-J?usp=sharing
-
-## Comments 
-
-- Our codebase for the diffusion models builds heavily on [OpenAI's ADM codebase](https://github.com/openai/guided-diffusion)
-and [https://github.com/lucidrains/denoising-diffusion-pytorch](https://github.com/lucidrains/denoising-diffusion-pytorch). 
-Thanks for open-sourcing!
-
-- The implementation of the transformer encoder is from [x-transformers](https://github.com/lucidrains/x-transformers) by [lucidrains](https://github.com/lucidrains?tab=repositories). 
-
+### Pretrained Autoencoding Models
+We've already downloaded a pretrained AE models; see the original repository for more information
 
 ## BibTeX
 
