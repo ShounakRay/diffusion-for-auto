@@ -81,8 +81,6 @@ where ``<config_spec>`` is one of {`celebahq-ldm-vq-4`(f=4, VQ-reg. autoencoder,
 # Model Zoo 
 
 ## Pretrained Autoencoding Models
-![rec2](assets/reconstruction2.png)
-
 All models were trained until convergence (no further substantial improvement in rFID).
 
 | Model                   | rFID vs val | train steps           |PSNR           | PSIM          | Link                                                                                                                                                  | Comments              
