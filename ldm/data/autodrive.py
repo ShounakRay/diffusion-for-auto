@@ -55,7 +55,7 @@ class AUTOBase(Dataset):
         image = Image.fromarray(img)
         
         width, height = image.size   # Get dimensions
-        assert width == 480 and height == 320, "Image is not 480x320"
+        assert width == 480 and height == 320, f"Image is not 480x320. Received: width, height={(width, height)}"
 
         # # TODO: Remove assertion
         # if self.horizontal_size is not None or self.vertical_size is not None:
