@@ -90,7 +90,7 @@ class AUTOWaymoTrain(AUTOBase):
     def __init__(self, **kwargs):
         super().__init__(txt_file="data/autodrive/waymo/waymo_train.txt",
                         #  data_root="data/autodrive/waymo/all",
-                        data_root="/scratch/groups/mykel/shounak_files/DATASETS/waymo/all",
+                        data_root="/DATASETS/waymo/all",
                          **kwargs)
 
 """
@@ -101,6 +101,6 @@ class AUTOWaymoValidation(AUTOBase):
     def __init__(self, flip_p=0.0, **kwargs):
         super().__init__(txt_file="data/autodrive/waymo/waymo_val.txt",
                         #  data_root="data/autodrive/waymo/all",
-                        data_root="/scratch/groups/mykel/shounak_files/DATASETS/waymo/all",
+                        data_root="/DATASETS/waymo/all",
                          flip_p=flip_p,
                          **kwargs)
