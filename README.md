@@ -23,6 +23,29 @@ and activated with:
 conda env create -f environment.yaml
 conda activate ldm-shounak
 ```
+#### Fix #1
+Now, inside this conda environment, run:
+```shell script
+python3 -m pip install packaging==21.3
+```
+This is to avoid an error involving PyTorch Lighting.
+This is the error (if you don't have packaging==21.3 on your system):
+```
+packaging.version.InvalidVersion: Invalid version: '0.10.1,<0.11'
+```
+
+#### Fix #2
+Also, inside this conda environment, run:
+```shell script
+python3 -m pip install torchmetrics==0.6
+```
+This is to avoid an error involving PyTorch Lighting.
+This is the error (if you don't have torchmetrics==0.6 on your system):
+```
+ImportError: cannot import name 'get_num_classes' from 'torchmetrics.utilities.data'
+```
+
+For more information, refer to: <https://github.com/CompVis/latent-diffusion/issues/207#issuecomment-1377329827> as required.
 
 ### Retrieve a Pretrained VAE (for now)
 You also need to install the model checkpoint for the pre-trained autoencoder we're going to use.
