@@ -270,7 +270,9 @@ if __name__ == "__main__":
     opt.base = base_configs
 
     configs = [OmegaConf.load(cfg) for cfg in opt.base]
+    print(f"configs: {configs}")
     cli = OmegaConf.from_dotlist(unknown)
+    print(f"cli: {cli}")
     config = OmegaConf.merge(*configs, cli)
 
     gpu = True
