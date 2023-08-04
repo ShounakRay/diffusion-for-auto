@@ -50,15 +50,15 @@ class AUTOBase(Dataset):
         # TODO: Eliminated center crop (at least for now)
         # TODO: Remove assertions
         # CENTER CROP
-        # crop = min(img.shape[0], img.shape[1])
-        # h, w, = img.shape[0], img.shape[1]
-        # img = img[(h - crop) // 2:(h + crop) // 2,
-        #       (w - crop) // 2:(w + crop) // 2]
+        crop = min(img.shape[0], img.shape[1])
+        h, w, = img.shape[0], img.shape[1]
+        img = img[(h - crop) // 2:(h + crop) // 2,
+              (w - crop) // 2:(w + crop) // 2]
 
         image = Image.fromarray(img)
         
         width, height = image.size   # Get dimensions
-        assert width == 480 and height == 320, f"Image is not 480x320. Received: width, height={(width, height)}"
+        # assert width == 320 and height == 320, f"Image is not 480x320. Received: width, height={(width, height)}"
 
         # if self.horizontal_size is not None or self.vertical_size is not None:
         #     # SQUISH RESIZE
