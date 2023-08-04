@@ -3,6 +3,7 @@ import torch
 import time
 import numpy as np
 from tqdm import trange
+from pprint import pprint
 
 from omegaconf import OmegaConf
 from PIL import Image
@@ -132,6 +133,7 @@ def run(model, logdir, batch_size=50, vanilla=False, custom_steps=None, eta=None
         all_img = all_img[:n_samples]
         shape_str = "x".join([str(x) for x in all_img.shape])
         nppath = os.path.join(nplog, f"{shape_str}-samples.npz")
+        print(nppath)
         np.savez(nppath, all_img)
 
     else:
@@ -266,13 +268,14 @@ if __name__ == "__main__":
         logdir = opt.resume.rstrip("/")
         ckpt = os.path.join(logdir, "model.ckpt")
 
-    base_configs = sorted(glob.glob(os.path.join(logdir, "config.yaml")))
+    # TODO: CONFIG_PATH should not be forced!
+    CONFIG_PATH = "/home/shounak/diffusion-for-auto/configs/latent-diffusion/CUSTOM-ldm-vq-4.yaml"
+    # CONFIG_PATH = os.path.join(logdir, "config.yaml")
+    base_configs = sorted(glob.glob(CONFIG_PATH))
     opt.base = base_configs
 
     configs = [OmegaConf.load(cfg) for cfg in opt.base]
-    print(f"configs: {configs}")
     cli = OmegaConf.from_dotlist(unknown)
-    print(f"cli: {cli}")
     config = OmegaConf.merge(*configs, cli)
 
     gpu = True
@@ -284,7 +287,7 @@ if __name__ == "__main__":
         print(f"Switching logdir from '{logdir}' to '{os.path.join(opt.logdir, locallog)}'")
         logdir = os.path.join(opt.logdir, locallog)
 
-    print(config)
+    pprint(config)
 
     model, global_step = load_model(config, ckpt, gpu, eval_mode)
     print(f"global step: {global_step}")

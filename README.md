@@ -116,7 +116,7 @@ CUDA_VISIBLE_DEVICES=<GPU_ID> python main.py --base configs/latent-diffusion/<co
 
 EXAMPLE COMMAND:
 ```shell script
-CUDA_VISIBLE_DEVICES=0,1 python main.py --base configs/latent-diffusion/CUSTOM-ldm-vq-4.yaml -t --gpus 0,1
+CUDA_VISIBLE_DEVICES=0,1 python main.py --base configs/latent-diffusion/CUSTOM-ldm-vq-4.yaml -t --gpus 0,1 -l "/home/shounak/LOGS/LOGS-diffusion-for-auto" -s 42
 ```
 
 Possible ``<config_spec>`` options also include

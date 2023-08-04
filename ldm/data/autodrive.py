@@ -47,17 +47,17 @@ class AUTOBase(Dataset):
         # default to score-sde preprocessing
         img = np.array(image).astype(np.uint8)
         
-        # TODO: Eliminated center crop (at least for now)
+        # !NOTE: 256x256 center crop is forced here for VAE consistency (not required idk)
         # TODO: Remove assertions
         # CENTER CROP
-        crop = min(img.shape[0], img.shape[1])
+        # crop = min(img.shape[0], img.shape[1])
+        crop = 256
         h, w, = img.shape[0], img.shape[1]
         img = img[(h - crop) // 2:(h + crop) // 2,
               (w - crop) // 2:(w + crop) // 2]
-
         image = Image.fromarray(img)
         
-        width, height = image.size   # Get dimensions
+        # width, height = image.size   # Get dimensions
         # assert width == 320 and height == 320, f"Image is not 480x320. Received: width, height={(width, height)}"
 
         # if self.horizontal_size is not None or self.vertical_size is not None:

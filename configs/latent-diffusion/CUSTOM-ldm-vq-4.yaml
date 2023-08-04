@@ -5,7 +5,7 @@ model:
     linear_start: 0.0015
     linear_end: 0.0195
     num_timesteps_cond: 1
-    log_every_t: 500
+    log_every_t: 200
     timesteps: 1000
     first_stage_key: image
     image_size: 64
@@ -66,14 +66,14 @@ data:
     wrap: false
     train:
       target: ldm.data.autodrive.AUTOWaymoTrain
-      # params:
-      #   vertical_size: 320
-      #   horizontal_size: 480
+      # params: THESE ARE FORCED IN `autodrive.py`
+        # vertical_size: 256
+        # horizontal_size: 256
     validation:
       target: ldm.data.autodrive.AUTOWaymoValidation
-      # params:
-      #   vertical_size: 320
-      #   horizontal_size: 480
+      # params: THESE ARE FORCED IN `autodrive.py`
+        # vertical_size: 256
+        # horizontal_size: 256
 
 lightning:
   callbacks:
@@ -86,5 +86,5 @@ lightning:
         clamp: True
 
   trainer:
-    accumulate_grad_batches: 1000
+    # accumulate_grad_batches: 100
     benchmark: True
