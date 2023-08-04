@@ -4,6 +4,7 @@ models/first_stage_models/vq-f4/model.ckpt
 src/
 LOGS/
 scratch/
+*.out
 
 ### PROVIDED BY GITHUB ###
 
