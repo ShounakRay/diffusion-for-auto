@@ -86,5 +86,5 @@ lightning:
         clamp: True
 
   trainer:
-    accumulate_grad_batches: 30
+    accumulate_grad_batches: 1000
     benchmark: True
