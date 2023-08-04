@@ -61,8 +61,8 @@ model:
 data:
   target: main.DataModuleFromConfig
   params:
-    batch_size: 4
-    num_workers: 16
+    batch_size: 16
+    num_workers: 30
     wrap: false
     train:
       target: ldm.data.autodrive.AUTOWaymoTrain
@@ -80,11 +80,11 @@ lightning:
     image_logger:
       target: main.ImageLogger
       params:
-        batch_frequency: 300
-        max_images: 4
+        batch_frequency: 1500
+        max_images: 8
         increase_log_steps: False
         clamp: True
 
   trainer:
-    accumulate_grad_batches: 1000
+    accumulate_grad_batches: 30
     benchmark: True
