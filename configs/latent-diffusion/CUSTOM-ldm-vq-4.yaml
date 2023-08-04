@@ -80,9 +80,10 @@ lightning:
     image_logger:
       target: main.ImageLogger
       params:
-        batch_frequency: 750
+        batch_frequency: 300
         max_images: 4
         increase_log_steps: False
+        clamp: True
 
   trainer:
     accumulate_grad_batches: 10
