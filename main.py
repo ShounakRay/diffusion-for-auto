@@ -679,7 +679,14 @@ if __name__ == "__main__":
         # configure learning rate
         bs, base_lr = config.data.params.batch_size, config.model.base_learning_rate
         if not cpu:
-            ngpu = len(lightning_config.trainer.gpus.strip(",").split(','))
+            # NOTE: [SR] If value is integer, we only have one GPU
+            GPU_VALUE = lightning_config.trainer.gpus
+            if isinstance(GPU_VALUE, int):
+                ngpu = GPU_VALUE
+            elif isinstance(GPU_VALUE, str):
+                ngpu = len(GPU_VALUE.strip(",").split(','))
+            else:
+                raise ValueError(f"Unknown type for gpus: {type(GPU_VALUE)}")
         else:
             ngpu = 1
         if 'accumulate_grad_batches' in lightning_config.trainer:
