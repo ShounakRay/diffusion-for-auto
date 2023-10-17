@@ -114,9 +114,13 @@ Training can be started by running
 CUDA_VISIBLE_DEVICES=<GPU_ID> python main.py --base configs/latent-diffusion/<config_spec>.yaml -t --gpus 0,
 ``` 
 
-EXAMPLE COMMAND:
+Google Cloud Example Command:
 ```shell script
 CUDA_VISIBLE_DEVICES=0,1 python main.py --base configs/latent-diffusion/CUSTOM-ldm-vq-4.yaml -t --gpus 0,1 -l "/home/shounak/LOGS/LOGS-diffusion-for-auto" -s 42
+```
+Stanford Sherlock Example Command:
+```shell script
+CUDA_VISIBLE_DEVICES=0,1 python main.py --base configs/latent-diffusion/CUSTOM-ldm-vq-4.yaml -t --gpus 0,1 -l "/scratch/users/shounak/LOGS/LOGS-diffusion-for-auto" -s 42
 ```
 
 Possible ``<config_spec>`` options also include
