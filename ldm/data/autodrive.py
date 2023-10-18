@@ -92,6 +92,8 @@ class AUTOBase(Dataset):
 
 ABSOLUTE_GROUP_SCRATCH = "/scratch/groups/mykel"
 RELATIVE_TEXT_FILE_BASE = "data/autodrive"
+WAYMO_CORE = "waymo"
+NUIMAGES_CORE = "nuimages"
 
 """
 cd $GROUP_SCRATCH/shounak_files/DATASETS/waymo
@@ -120,13 +122,13 @@ class AUTOWaymoValidation(AUTOBase):
 #########################
 class AUTONuimagesTrain(AUTOBase):
     def __init__(self, **kwargs):
-        super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/nuimages/nuimages_train.txt",
-                         data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/nuimages/train",
+        super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{NUIMAGES_CORE}/{NUIMAGES_CORE}_train.txt",
+                         data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{NUIMAGES_CORE}/train",
                          **kwargs)
 
 class AUTONuimagesValidation(AUTOBase):
     def __init__(self, flip_p=0.0, **kwargs):
-        super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/nuimages/nuimages_val.txt",
-                         data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/nuimages/test",
+        super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{NUIMAGES_CORE}/{NUIMAGES_CORE}_val.txt",
+                         data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{NUIMAGES_CORE}/test",
                          flip_p=flip_p,
                          **kwargs)
