@@ -26,6 +26,8 @@ from ldm.util import instantiate_from_config
 
 LOG_PATH = "/scratch/users/shounak/LOGS-diffusion-for-auto"
 
+from pprint import pprint
+
 def get_parser(**parser_kwargs):
     def str2bool(v):
         if isinstance(v, bool):
@@ -662,6 +664,8 @@ if __name__ == "__main__":
 
         trainer_kwargs["callbacks"] = [instantiate_from_config(callbacks_cfg[k]) for k in callbacks_cfg]
 
+        print("Training with: ")
+        pprint(trainer_kwargs)
         trainer = Trainer.from_argparse_args(trainer_opt, **trainer_kwargs)
         trainer.logdir = logdir  ###
 
