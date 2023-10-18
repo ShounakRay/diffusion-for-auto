@@ -16,11 +16,11 @@
 #############################
 
 # Either `waymo` or `nuimages`
-readonly DATASET_NAME="waymo"
+readonly DATASET_NAME="nuimages"
 # Do not modify
 readonly CONFIG_PATH="configs/latent-diffusion/$DATASET_NAME-ldm-vq-4.yaml"
 # Do not modify
-readonly LOG_PATH="$GROUP_SCRATCH/LOGS/diffusion-for-auto/$DATASET_NAME"
+readonly LOG_PATH="$SCRATCH/LOGS/diffusion-for-auto/$DATASET_NAME"
 
 #############################
 #############################
