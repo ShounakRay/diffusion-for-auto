@@ -8,8 +8,22 @@
 #SBATCH --mem=16G
 #SBATCH -p gpu
 #SBATCH -G 1
-#SBATCH -C 'GPU_GEN:VLT&GPU_MEM:16GB'
-#SBATCH --gpu_cmode=shared
+#S_BATCH -C 'GPU_GEN:VLT&GPU_MEM:16GB'
+#S_BATCH --gpu_cmode=shared
+
+#############################
+######### SETTINGS ##########
+#############################
+
+# Either `waymo` or `nuimages`
+readonly DATASET_NAME="waymo"
+# Do not modify
+readonly CONFIG_PATH="configs/latent-diffusion/$DATASET_NAME-ldm-vq-4.yaml"
+# Do not modify
+readonly LOG_PATH="$GROUP_SCRATCH/LOGS/diffusion-for-auto/$DATASET_NAME"
+
+#############################
+#############################
 
 echo "SHERLOCK: Loading GCC"
 ml load gcc/6.3.0
@@ -39,5 +53,5 @@ echo "SHERLOCK: If there are no error messages before this comment, we activated
 
 echo "SHERLOCK: Current Working Directory $PWD"
 
-CUDA_VISIBLE_DEVICES=0 python main.py --base configs/latent-diffusion/CUSTOM-ldm-vq-4.yaml -t --gpus 0 -l "/scratch/users/shounak/LOGS-diffusion-for-auto"
+CUDA_VISIBLE_DEVICES=0 python3 main.py --base $CONFIG_PATH -t --gpus 0 -l $LOG_PATH
 echo "SHERLOCK: Command Execution Complete"
