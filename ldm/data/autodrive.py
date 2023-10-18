@@ -82,14 +82,25 @@ class AUTOBase(Dataset):
         
         return example
 
+# FIXME: [SHOUNAK]
+# Note: The following classes are referenced in the config files,
+#       .YAML for the CUSTOM-ldm model.
+
+##########################
+######### WAYMO ##########
+##########################
+
+ABSOLUTE_GROUP_SCRATCH = "/scratch/groups/mykel"
+RELATIVE_TEXT_FILE_BASE = "data/autodrive"
+
 """
 cd $GROUP_SCRATCH/shounak_files/DATASETS/waymo
-find train -maxdepth 1 -type f -name "*.jpg" -print0 | xargs -0 -I {} basename {} > $HOME/diffusion-for-auto/data/autodrive/waymo/waymo_train.txt
+find train -maxdepth 1 -type f -name "*.jpg" -print0 | xargs -0 -I {} basename {} > $HOME/diffusion-for-auto/RELATIVE_TEXT_FILE_BASE/waymo/waymo_train.txt
 """
 class AUTOWaymoTrain(AUTOBase):
     def __init__(self, **kwargs):
-        super().__init__(txt_file="data/autodrive/waymo/waymo_train.txt",
-                         data_root="/scratch/groups/mykel/shounak_files/DATASETS/waymo/train",
+        super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/waymo/waymo_train.txt",
+                         data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/waymo/train",
                          **kwargs)
 
 """
@@ -98,7 +109,24 @@ find test -maxdepth 1 -type f -name "*.jpg" -print0 | xargs -0 -I {} basename {}
 """
 class AUTOWaymoValidation(AUTOBase):
     def __init__(self, flip_p=0.0, **kwargs):
-        super().__init__(txt_file="data/autodrive/waymo/waymo_val.txt",
-                         data_root="/scratch/groups/mykel/shounak_files/DATASETS/waymo/test",
+        super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/waymo/waymo_val.txt",
+                         data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/waymo/test",
+                         flip_p=flip_p,
+                         **kwargs)
+
+
+#########################
+####### NUIMAGES ########
+#########################
+class AUTONuimagesTrain(AUTOBase):
+    def __init__(self, **kwargs):
+        super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/nuimages/nuimages_train.txt",
+                         data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/nuimages/train",
+                         **kwargs)
+
+class AUTONuimagesValidation(AUTOBase):
+    def __init__(self, flip_p=0.0, **kwargs):
+        super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/nuimages/nuimages_val.txt",
+                         data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/nuimages/test",
                          flip_p=flip_p,
                          **kwargs)

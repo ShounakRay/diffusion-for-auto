@@ -114,13 +114,13 @@ Training can be started by running
 CUDA_VISIBLE_DEVICES=<GPU_ID> python main.py --base configs/latent-diffusion/<config_spec>.yaml -t --gpus 0,
 ``` 
 
-Google Cloud Example Command:
+Google Cloud Example Command for WAYMO:
 ```shell script
-CUDA_VISIBLE_DEVICES=0,1 python main.py --base configs/latent-diffusion/CUSTOM-ldm-vq-4.yaml -t --gpus 0,1 -l "/home/shounak/LOGS/LOGS-diffusion-for-auto" -s 42
+CUDA_VISIBLE_DEVICES=0,1 python main.py --base configs/latent-diffusion/CUSTOM-ldm-vq-4.yaml -t --gpus 0,1 -l "/home/shounak/LOGS/diffusion-for-auto/waymo" -s 42
 ```
-Stanford Sherlock Example Command:
+Stanford Sherlock Example Command for WAYMO:
 ```shell script
-CUDA_VISIBLE_DEVICES=0,1 python main.py --base configs/latent-diffusion/CUSTOM-ldm-vq-4.yaml -t --gpus 0,1 -l "/scratch/users/shounak/LOGS/LOGS-diffusion-for-auto" -s 42
+CUDA_VISIBLE_DEVICES=0,1 python main.py --base configs/latent-diffusion/CUSTOM-ldm-vq-4.yaml -t --gpus 0,1 -l "/scratch/users/shounak/LOGS/diffusion-for-auto/waymo" -s 42
 ```
 
 Possible ``<config_spec>`` options also include
