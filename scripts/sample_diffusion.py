@@ -183,6 +183,7 @@ def get_parser():
         '--dataset',
         type=str,
         help='dataset to sample from. Either `waymo` or `nuimages` supported right now.',
+        required=True,
     )
     parser.add_argument(
         "-e",
@@ -275,7 +276,7 @@ if __name__ == "__main__":
         ckpt = os.path.join(logdir, "model.ckpt")
 
     # TODO: CONFIG_PATH should not be forced!
-    CAR_NAME = "waymo"
+    CAR_NAME = parser.parse_args().dataset
     BASE_PATH = "/home/users/shounak/diffusion-for-auto/configs/latent-diffusion"
     CONFIG_PATH = f"{BASE_PATH}/{CAR_NAME}-ldm-vq-4.yaml"
     # CONFIG_PATH = os.path.join(logdir, "config.yaml")
