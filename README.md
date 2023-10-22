@@ -142,6 +142,11 @@ Once you've downloaded or generated a model checkpoint(s), we also provide a scr
 CUDA_VISIBLE_DEVICES=<GPU_ID> python scripts/sample_diffusion.py -r models/ldm/<model_spec>/model.ckpt -l <logdir> -n <\#samples> --batch_size <batch_size> -c <\#ddim steps> -e <\#eta> 
 ```
 
+An example command to run inference on a nuimages model on Sherlock is:
+```shell script
+CUDA_VISIBLE_DEVICES=0, python scripts/sample_diffusion.py -r $SCRATCH/LOGS/diffusion-for-auto/nuimages/2023-10-19T15-54-56_nuimages-ldm-vq-4/checkpoints/last.ckpt -l $SCRATCH/LOGS/diffusion-for-auto/nuimages_inference/ -d "nuimages"  -n 16 --batch_size 4 -c 20 -e 0
+```
+
 ---
 ---
 
