@@ -13,7 +13,7 @@ def load_model(path: str):
     model = torch.load(path, map_location="cpu")
 
     # Get the weights
-    weights = model['model_state_dict']
+    weights = model['state_dict']
 
     # Return the weights
     return weights
@@ -53,7 +53,7 @@ def get_parser():
 
 
 # Asserts properties of arguments
-def assert_args(args):
+def assert_args(args: argparse.Namespace):
     # A utility function that ensures that a path exists
     def _ensure_path(path: str) -> bool:
         return os.path.exists(path)
@@ -77,7 +77,6 @@ def assert_args(args):
 if __name__ == "__main__":
     # Get paths of both models through parser
     args = get_parser().parse_args()
-    print(f">>> Type of args {type(args)}")
     assert_args(args)
     
     # Loads two models
