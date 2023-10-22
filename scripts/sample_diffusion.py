@@ -269,9 +269,10 @@ if __name__ == "__main__":
         ckpt = os.path.join(logdir, "model.ckpt")
 
     # TODO: CONFIG_PATH should not be forced!
-    # CONFIG_PATH = "/home/shounak/diffusion-for-auto/configs/latent-diffusion/CUSTOM-ldm-vq-4.yaml"
+    CAR_NAME = "waymo"
+    CONFIG_PATH = f"/home/shounak/diffusion-for-auto/configs/latent-diffusion/{CAR_NAME}-ldm-vq-4.yaml"
     print(f"This is the logdir: {logdir}")
-    CONFIG_PATH = os.path.join(logdir, "config.yaml")
+    # CONFIG_PATH = os.path.join(logdir, "config.yaml")
     print(f"This is the config path: {CONFIG_PATH}")
     base_configs = sorted(glob.glob(CONFIG_PATH))
     opt.base = base_configs
