@@ -270,7 +270,8 @@ if __name__ == "__main__":
 
     # TODO: CONFIG_PATH should not be forced!
     CAR_NAME = "waymo"
-    CONFIG_PATH = f"/home/shounak/diffusion-for-auto/configs/latent-diffusion/{CAR_NAME}-ldm-vq-4.yaml"
+    BASE_PATH = "/home/users/shounak/diffusion-for-auto/configs/latent-diffusion"
+    CONFIG_PATH = f"{BASE_PATH}/{CAR_NAME}-ldm-vq-4.yaml"
     print(f"This is the logdir: {logdir}")
     # CONFIG_PATH = os.path.join(logdir, "config.yaml")
     print(f"This is the config path: {CONFIG_PATH}")
