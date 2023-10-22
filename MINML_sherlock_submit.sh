@@ -1,26 +1,22 @@
 #!/bin/sh
 #
-#SBATCH --job-name=4G_nuimages_training
-#SBATCH --time=48:00:00
+#SBATCH --job-name=DEVGPU_waymo_training
+#SBATCH --time=1:00:00
 #SBATCH --ntasks=1
 
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64GB
 #SBATCH -p gpu
-#SBATCH -G 4
-#SBATCH -C 'GPU_MEM:32GB'
-#SBATCH --gpu_cmode=shared
-
-## POSSIBLE ADDITION TO CUSTOMIZATION:
-## GPU_SKU:V100S_PCIE
-## https://technical.city/en/video/Tesla-V100-PCIe-32-GB-vs-Tesla-V100S-PCIe-32-GB
+#SBATCH -G 1
+#S____BATCH -C 'GPU_GEN:VLT&GPU_MEM:16GB'
+#S____BATCH --gpu_cmode=shared
 
 #############################
 ######### SETTINGS ##########
 #############################
 
 # Either `waymo` or `nuimages`
-readonly DATASET_NAME="nuimages"
+readonly DATASET_NAME="waymo"
 # Do not modify
 readonly CONFIG_PATH="configs/latent-diffusion/$DATASET_NAME-ldm-vq-4.yaml"
 # Do not modify
@@ -57,5 +53,5 @@ echo "SHERLOCK: If there are no error messages before this comment, we activated
 
 echo "SHERLOCK: Current Working Directory $PWD"
 
-CUDA_VISIBLE_DEVICES=0,1,2,3 python3 main.py --base $CONFIG_PATH -t --gpus 0,1,2,3 -l $LOG_PATH
+CUDA_VISIBLE_DEVICES=0 python3 main.py --base $CONFIG_PATH --gpus=0, -t -l $LOG_PATH
 echo "SHERLOCK: Command Execution Complete"
