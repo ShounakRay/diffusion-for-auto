@@ -30,6 +30,7 @@ def average_weights(weights1: collections.OrderedDict, weights2: collections.Ord
     keys = weights1.keys()
     # Create a dictionary to store the averaged weights
     averaged_weights = {}
+    averaged_weights['state_dict'] = {}
     # Loop over the keys
     for key in keys:
         # Get the weights
@@ -38,7 +39,7 @@ def average_weights(weights1: collections.OrderedDict, weights2: collections.Ord
         # Take the average
         averaged_weight = (weight1 + weight2) / 2.
         # Store the averaged weight
-        averaged_weights[key] = averaged_weight
+        averaged_weights['state_dict'][key] = averaged_weight
     # Return the averaged weights
     return averaged_weights
 
