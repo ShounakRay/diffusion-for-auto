@@ -275,8 +275,8 @@ if __name__ == "__main__":
         logdir = opt.resume.rstrip("/")
         ckpt = os.path.join(logdir, "model.ckpt")
 
-    # TODO: CONFIG_PATH should not be forced!
     CAR_NAME = parser.parse_args().dataset
+    assert(CAR_NAME in ('waymo', 'nuimages'))
     BASE_PATH = "/home/users/shounak/diffusion-for-auto/configs/latent-diffusion"
     CONFIG_PATH = f"{BASE_PATH}/{CAR_NAME}-ldm-vq-4.yaml"
     # CONFIG_PATH = os.path.join(logdir, "config.yaml")
