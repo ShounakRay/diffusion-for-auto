@@ -6,6 +6,7 @@ import torch
 import os
 import argparse
 from datetime import datetime
+import collections
 
 # Function that takes a `model.ckpt` file and loads it using PyTorch
 def load_model(path: str):
@@ -13,6 +14,7 @@ def load_model(path: str):
     model = torch.load(path, map_location="cpu")
 
     # Get the weights
+    print(f"Model keys: {model.keys()}")
     weights = model['state_dict']
 
     # Return the weights
@@ -20,25 +22,23 @@ def load_model(path: str):
 
 
 # Function that takes the average of two weights, each the outcome of model['model_state_dict']
-def average_weights(weights1, weights2):
+def average_weights(weights1: collections.OrderedDict, weights2: collections.OrderedDict):
+    # Assert that both weights have the same shape
+    assert weights1.keys() == weights2.keys(), "The weights do not have the same keys."
+    
     # Get the keys of the weights
     keys = weights1.keys()
-
     # Create a dictionary to store the averaged weights
     averaged_weights = {}
-
     # Loop over the keys
     for key in keys:
         # Get the weights
         weight1 = weights1[key]
         weight2 = weights2[key]
-
         # Take the average
         averaged_weight = (weight1 + weight2) / 2.
-
         # Store the averaged weight
         averaged_weights[key] = averaged_weight
-
     # Return the averaged weights
     return averaged_weights
 
@@ -74,7 +74,17 @@ def assert_args(args: argparse.Namespace):
     assert "waymo" in args.path2 or "nuimages" in args.path2, "Path 2 is not a waymo or nuimages model."
 
 
+
 if __name__ == "__main__":
+    """
+    Example usage:
+    ```
+    time python3 exploration/weights_merge.py \
+    --path1 $SCRATCH/LOGS/diffusion-for-auto/nuimages/2023-10-19T15-54-56_nuimages-ldm-vq-4/checkpoints/last.ckpt \
+    --path2 $SCRATCH/LOGS/diffusion-for-auto/waymo/2023-10-18T16-14-53_waymo-ldm-vq-4/checkpoints/last.ckpt \
+    --output_dir $SCRATCH/LOGS/diffusion-for-auto/joint
+    ```
+    """
     # Get paths of both models through parser
     args = get_parser().parse_args()
     assert_args(args)
@@ -83,7 +93,6 @@ if __name__ == "__main__":
     weights1 = load_model(args.path1)
     weights2 = load_model(args.path2)
     
-    print(f">>> Type of model weights: {type(weights2)}")
     # Takes the average of the weights
     averaged_weights = average_weights(weights1, weights2)
     # Saves the averaged weights; add joint file name path1 + path2 + datetime to outputpath
