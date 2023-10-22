@@ -10,7 +10,7 @@ from datetime import datetime
 # Function that takes a `model.ckpt` file and loads it using PyTorch
 def load_model(path: str):
     # Load the model
-    model = torch.load(path)
+    model = torch.load(path, map_location="cpu")
 
     # Get the weights
     weights = model['model_state_dict']
