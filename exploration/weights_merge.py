@@ -69,7 +69,6 @@ def assert_args(args):
     # Assert that all paths are ckpt files
     assert args.path1.endswith(".ckpt"), "Path 1 is not a ckpt file."
     assert args.path2.endswith(".ckpt"), "Path 2 is not a ckpt file."
-    assert args.output_dir.endswith(".ckpt"), "Output path is not a ckpt file."
     # Assert that the paths either have "waymo" or "nuimages" in them
     assert "waymo" in args.path1 or "nuimages" in args.path1, "Path 1 is not a waymo or nuimages model."
     assert "waymo" in args.path2 or "nuimages" in args.path2, "Path 2 is not a waymo or nuimages model."
