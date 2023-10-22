@@ -179,6 +179,12 @@ def get_parser():
         default=50000
     )
     parser.add_argument(
+        '-d',
+        '--dataset',
+        type=str,
+        help='dataset to sample from. Either `waymo` or `nuimages` supported right now.',
+    )
+    parser.add_argument(
         "-e",
         "--eta",
         type=float,
@@ -272,9 +278,7 @@ if __name__ == "__main__":
     CAR_NAME = "waymo"
     BASE_PATH = "/home/users/shounak/diffusion-for-auto/configs/latent-diffusion"
     CONFIG_PATH = f"{BASE_PATH}/{CAR_NAME}-ldm-vq-4.yaml"
-    print(f"This is the logdir: {logdir}")
     # CONFIG_PATH = os.path.join(logdir, "config.yaml")
-    print(f"This is the config path: {CONFIG_PATH}")
     base_configs = sorted(glob.glob(CONFIG_PATH))
     opt.base = base_configs
 
