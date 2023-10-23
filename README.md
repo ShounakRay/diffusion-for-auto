@@ -14,11 +14,13 @@
 </p>
 
 ## TODO:
+0.0. Adjustment: Training hyperparameters to make even better diffusion models?
 0. Adjustment: Selective averaging of weights based on model key (better understanding
                 of model weights and what they mean)
 1. New approach: combining the datasets together and understanding resultant weights
 2. New approach: CLIP/img2text parsing for each image in dataset, something about providing
-                 adversarial text->image examples to perception/object detection algorithm
+                 adversarial text->image examples to perception/object detection algorithm.
+                 Inspiration here: to isolate impact
 
 ## Requirements
 
