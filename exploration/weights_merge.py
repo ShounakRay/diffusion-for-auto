@@ -63,6 +63,7 @@ def get_parser():
     parser.add_argument("--path1", type=str, required=True)
     parser.add_argument("--path2", type=str, required=True)
     parser.add_argument("--output_dir", type=str, required=True)
+    parser.add_argument("--alpha", type=float, default=0.5, required=False)
     return parser
 
 
@@ -108,7 +109,7 @@ if __name__ == "__main__":
     weights2 = load_model(args.path2)
     
     # Takes the average of the weights
-    averaged_weights = average_weights(weights1, weights2)
+    averaged_weights = average_weights(weights1, weights2, args.alpha)
     # Saves the averaged weights; add joint file name path1 + path2 + datetime to outputpath
     data_1 = "waymo" if "waymo" in args.path1 else "nuimages"
     data_2 = "waymo" if "waymo" in args.path2 else "nuimages"
