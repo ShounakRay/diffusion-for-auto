@@ -116,12 +116,21 @@ CUDA_VISIBLE_DEVICES=<GPU_ID> python main.py --base configs/latent-diffusion/<co
 
 Google Cloud Example Command for WAYMO:
 ```shell script
-CUDA_VISIBLE_DEVICES=0,1 python main.py --base configs/latent-diffusion/CUSTOM-ldm-vq-4.yaml -t --gpus 0,1 -l "/home/shounak/LOGS/diffusion-for-auto/waymo" -s 42
+CUDA_VISIBLE_DEVICES=0,1 python main.py --base configs/latent-diffusion/waymo-ldm-vq-4.yaml -t --gpus 0,1 -l "/home/shounak/LOGS/diffusion-for-auto/waymo" -s 42
 ```
 Stanford Sherlock Example Command for WAYMO:
 ```shell script
-CUDA_VISIBLE_DEVICES=0,1 python main.py --base configs/latent-diffusion/CUSTOM-ldm-vq-4.yaml -t --gpus 0,1 -l "/scratch/users/shounak/LOGS/diffusion-for-auto/waymo" -s 42
+CUDA_VISIBLE_DEVICES=0,1 python main.py --base configs/latent-diffusion/waymo-ldm-vq-4.yaml -t --gpus 0,1 -l $SCRATCH/LOGS/diffusion-for-auto/waymo -s 42
 ```
+Stanford Sherlock Example Command for NUIMAGES:
+```shell script
+CUDA_VISIBLE_DEVICES=0,1 python main.py --base configs/latent-diffusion/nuimages-ldm-vq-4.yaml -t --gpus 0,1 -l $SCRATCH/LOGS/diffusion-for-auto/nuimages -s 42
+```
+Stanford Sherlock Example Command for NUIMAGES+WAYMO:
+```shell script
+CUDA_VISIBLE_DEVICES=0,1,2,3 python main.py --base configs/latent-diffusion/nuimages_waymo-ldm-vq-4.yaml -t --gpus 0,1,2,3 -l $SCRATCH/LOGS/diffusion-for-auto/nuimages_waymo -s 42
+```
+
 
 Possible ``<config_spec>`` options also include
 - `celebahq-ldm-vq-4`(f=4, VQ-reg. autoencoder, spatial size 64x64x3)

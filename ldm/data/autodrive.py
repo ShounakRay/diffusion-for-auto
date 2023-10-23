@@ -94,6 +94,7 @@ ABSOLUTE_GROUP_SCRATCH = "/scratch/groups/mykel"
 RELATIVE_TEXT_FILE_BASE = "data/autodrive"
 WAYMO_CORE = "waymo"
 NUIMAGES_CORE = "nuimages"
+JOINT_CORE = f"{WAYMO_CORE}_{NUIMAGES_CORE}"
 
 """
 cd $GROUP_SCRATCH/shounak_files/DATASETS/waymo
@@ -130,5 +131,63 @@ class AUTONuimagesValidation(AUTOBase):
     def __init__(self, flip_p=0.0, **kwargs):
         super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{NUIMAGES_CORE}/{NUIMAGES_CORE}_val.txt",
                          data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{NUIMAGES_CORE}/test",
+                         flip_p=flip_p,
+                         **kwargs)
+        
+#########################
+### WAYMO + NUIMAGES ####
+#########################
+
+"""
+Steps used to generate:
+*** NOTE TRAILING SLASHES ***
+*** REFERENCE: https://serverfault.com/a/505758 ***
+
+1. Local joint data, test directory for waymo
+`
+time rsync -avhW --no-compress \
+    $GROUP_SCRATCH/shounak_files/DATASETS/waymo/test/ \
+    $GROUP_SCRATCH/shounak_files/DATASETS/waymo_nuimages/test
+`
+
+2. Local joint data, test directory for nuimages
+`
+time rsync -avhW --no-compress \
+    $GROUP_SCRATCH/shounak_files/DATASETS/nuimages/test/ \
+    $GROUP_SCRATCH/shounak_files/DATASETS/waymo_nuimages/test
+`
+
+3. Local joint data, train directory for waymo
+`
+time rsync -avhW --no-compress \
+    $GROUP_SCRATCH/shounak_files/DATASETS/waymo/train/ \
+    $GROUP_SCRATCH/shounak_files/DATASETS/waymo_nuimages/train
+`
+
+4. Local joint data, train directory for nuimages
+`
+time rsync -avhW --no-compress \
+    $GROUP_SCRATCH/shounak_files/DATASETS/nuimages/train/ \
+    $GROUP_SCRATCH/shounak_files/DATASETS/waymo_nuimages/train
+`
+
+5. Generate joint test file
+ls test/ -1 > $HOME/diffusion-for-auto/data/autodrive/waymo_nuimages/waymo_nuimages_val.txt
+
+6. Generate joint train file
+ls train/ -1 > $HOME/diffusion-for-auto/data/autodrive/waymo_nuimages/waymo_nuimages_train.txt
+
+"""
+
+class AUTOWaymoNuimagesTrain(AUTOBase):
+    def __init__(self, **kwargs):
+        super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{JOINT_CORE}/{JOINT_CORE}_train.txt",
+                         data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{JOINT_CORE}/train",
+                         **kwargs)
+
+class AUTOWaymoNuimagesValidation(AUTOBase):
+    def __init__(self, flip_p=0.0, **kwargs):
+        super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{JOINT_CORE}/{JOINT_CORE}_val.txt",
+                         data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{JOINT_CORE}/test",
                          flip_p=flip_p,
                          **kwargs)
