@@ -21,8 +21,21 @@ def load_model(path: str):
     return weights
 
 
-# Function that takes the average of two weights, each the outcome of model['model_state_dict']
-def average_weights(weights1: collections.OrderedDict, weights2: collections.OrderedDict):
+# Function that takes the weighted average of two weights,
+#   each the outcome of model['model_state_dict']
+def average_weights(weights1: collections.OrderedDict,
+                    weights2: collections.OrderedDict,
+                    alpha: float = 0.5) -> dict:
+    """_summary_
+
+    Args:
+        weights1 (collections.OrderedDict): Weights for first model.
+        weights2 (collections.OrderedDict): Weights for second model
+        alpha (float, optional): The affinity toward weights1. Defaults to 0.5.
+
+    Returns:
+        dict: The merged weights.
+    """
     # Assert that both weights have the same shape
     assert weights1.keys() == weights2.keys(), "The weights do not have the same keys."
     
@@ -37,7 +50,7 @@ def average_weights(weights1: collections.OrderedDict, weights2: collections.Ord
         weight1 = weights1[key]
         weight2 = weights2[key]
         # Take the average
-        averaged_weight = (weight1 + weight2) / 2.
+        averaged_weight = (weight1 * alpha + weight2 * (1 - alpha)) / 2.
         # Store the averaged weight
         averaged_weights['state_dict'][key] = averaged_weight
     # Return the averaged weights
