@@ -50,11 +50,9 @@ def average_weights(weights1: collections.OrderedDict,
         weight1 = weights1[key]
         weight2 = weights2[key]
         # Take the average
-        print(f"Weight 1 shape: {weight1.shape}")
-        print(f"Weight 2 shape: {weight2.shape}")
-        if key == keys[0]:
-            print(f"Weight 1 | 2 type: {type(weight1)}")
-        averaged_weight = (weight1 * alpha + weight2 * (1 - alpha)) / 2.
+        print(f"Weight 1 shape @ key {key}: {weight1.shape}")
+        print(f"Weight 2 shape @ key {key}: {weight2.shape}")
+        averaged_weight = weight1 * alpha + weight2 * (1 - alpha)
         # Store the averaged weight
         averaged_weights['state_dict'][key] = averaged_weight
     # Return the averaged weights
