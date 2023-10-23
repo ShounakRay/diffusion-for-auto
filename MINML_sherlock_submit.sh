@@ -1,22 +1,20 @@
 #!/bin/sh
 #
-#SBATCH --job-name=DEVGPU_waymo_training
+#SBATCH --job-name=DEVGPU_joint
 #SBATCH --time=1:00:00
 #SBATCH --ntasks=1
 
-#SBATCH --cpus-per-task=16
-#SBATCH --mem=64GB
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=16GB
 #SBATCH -p gpu
 #SBATCH -G 1
-#S____BATCH -C 'GPU_GEN:VLT&GPU_MEM:16GB'
-#S____BATCH --gpu_cmode=shared
 
 #############################
 ######### SETTINGS ##########
 #############################
 
 # Either `waymo` or `nuimages`
-readonly DATASET_NAME="waymo"
+readonly DATASET_NAME="nuimages_waymo"
 # Do not modify
 readonly CONFIG_PATH="configs/latent-diffusion/$DATASET_NAME-ldm-vq-4.yaml"
 # Do not modify

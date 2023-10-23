@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-#SBATCH --job-name=4G_nuimages_training
+#SBATCH --job-name=4G_joint_training
 #SBATCH --time=48:00:00
 #SBATCH --ntasks=1
 
@@ -20,7 +20,7 @@
 #############################
 
 # Either `waymo` or `nuimages`
-readonly DATASET_NAME="nuimages"
+readonly DATASET_NAME="nuimages_waymo"
 # Do not modify
 readonly CONFIG_PATH="configs/latent-diffusion/$DATASET_NAME-ldm-vq-4.yaml"
 # Do not modify
