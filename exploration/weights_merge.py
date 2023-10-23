@@ -114,6 +114,6 @@ if __name__ == "__main__":
     # Saves the averaged weights; add joint file name path1 + path2 + datetime to outputpath
     data_1 = "waymo" if "waymo" in args.path1 else "nuimages"
     data_2 = "waymo" if "waymo" in args.path2 else "nuimages"
-    tail = args.alpha + '_' + data_1 + '-' + data_2 + '_' + datetime.now().strftime("%Y%m%d-%H%M%S") + ".ckpt"
+    tail = str(args.alpha) + '_' + data_1 + '-' + data_2 + '_' + datetime.now().strftime("%Y%m%d-%H%M%S") + ".ckpt"
     torch.save(averaged_weights, os.path.join(args.output_dir,
                                               tail))
