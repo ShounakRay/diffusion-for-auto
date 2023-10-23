@@ -97,7 +97,8 @@ if __name__ == "__main__":
     time python3 exploration/weights_merge.py \
     --path1 $SCRATCH/LOGS/diffusion-for-auto/nuimages/2023-10-19T15-54-56_nuimages-ldm-vq-4/checkpoints/last.ckpt \
     --path2 $SCRATCH/LOGS/diffusion-for-auto/waymo/2023-10-18T16-14-53_waymo-ldm-vq-4/checkpoints/last.ckpt \
-    --output_dir $SCRATCH/LOGS/diffusion-for-auto/joint
+    --output_dir $SCRATCH/LOGS/diffusion-for-auto/joint \
+    --alpha 0.1
     ```
     """
     # Get paths of both models through parser
@@ -113,5 +114,6 @@ if __name__ == "__main__":
     # Saves the averaged weights; add joint file name path1 + path2 + datetime to outputpath
     data_1 = "waymo" if "waymo" in args.path1 else "nuimages"
     data_2 = "waymo" if "waymo" in args.path2 else "nuimages"
+    tail = args.alpha + '_' + data_1 + '-' + data_2 + '_' + datetime.now().strftime("%Y%m%d-%H%M%S") + ".ckpt"
     torch.save(averaged_weights, os.path.join(args.output_dir,
-                                              data_1 + '-' + data_2 + '_' + datetime.now().strftime("%Y%m%d-%H%M%S") + ".ckpt"))
+                                              tail))
