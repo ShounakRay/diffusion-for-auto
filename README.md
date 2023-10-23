@@ -147,6 +147,11 @@ An example command to run inference on a nuimages model on Sherlock is:
 CUDA_VISIBLE_DEVICES=0, python scripts/sample_diffusion.py -r $SCRATCH/LOGS/diffusion-for-auto/nuimages/2023-10-19T15-54-56_nuimages-ldm-vq-4/checkpoints/last.ckpt -l $SCRATCH/LOGS/diffusion-for-auto/nuimages_inference/ -d "nuimages"  -n 16 --batch_size 4 -c 20 -e 0
 ```
 
+An example command to run inference on a merged model on Sherlock is:
+```shell script
+CUDA_VISIBLE_DEVICES=0, python3 scripts/sample_diffusion.py -r $SCRATCH/LOGS/diffusion-for-auto/joint/0.1_nuimages-waymo_20231022-202113.ckpt -l $SCRATCH/LOGS/diffusion-for-auto/joint_inference/ -d "nuimages"  -n 16 --batch_size 4 -c 20 -e 0
+```
+
 ---
 ---
 
