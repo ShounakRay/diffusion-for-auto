@@ -13,6 +13,11 @@
 <img src=assets/modelfigure.png />
 </p>
 
+## TODO:
+1. New approach: combining the datasets together and understanding resultant weights
+2. New approach: CLIP/img2text parsing for each image in dataset, something about providing
+                 adversarial text->image examples to perception/object detection algorithm
+
 ## Requirements
 
 ### Set your own LOG_PATH
