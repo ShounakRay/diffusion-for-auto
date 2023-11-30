@@ -94,11 +94,12 @@ ABSOLUTE_GROUP_SCRATCH = "/scratch/groups/mykel"
 RELATIVE_TEXT_FILE_BASE = "data/autodrive"
 WAYMO_CORE = "waymo"
 NUIMAGES_CORE = "nuimages"
-JOINT_CORE = f"{WAYMO_CORE}_{NUIMAGES_CORE}"
+AUDI_CORE = "audi"
+WAYMO_NUIMG_CORE = f"{WAYMO_CORE}_{NUIMAGES_CORE}"
 
 """
 cd $GROUP_SCRATCH/shounak_files/DATASETS/waymo
-find train -maxdepth 1 -type f -name "*.jpg" -print0 | xargs -0 -I {} basename {} > $HOME/diffusion-for-auto/RELATIVE_TEXT_FILE_BASE/waymo/waymo_train.txt
+find train -maxdepth 1 -type f -name "*.jpg" -print0 | xargs -0 -I {} basename {} > $HOME/diffusion-for-auto/{RELATIVE_TEXT_FILE_BASE}/waymo/waymo_train.txt
 """
 class AUTOWaymoTrain(AUTOBase):
     def __init__(self, **kwargs):
@@ -117,6 +118,29 @@ class AUTOWaymoValidation(AUTOBase):
                          flip_p=flip_p,
                          **kwargs)
 
+#########################
+########## AUDI #########
+#########################
+"""
+cd $GROUP_SCRATCH/audi
+find train -maxdepth 1 -type f -name "*.png" -print0 | xargs -0 -I {} basename {} > $HOME/diffusion-for-auto/{RELATIVE_TEXT_FILE_BASE}/audi/audi_train.txt
+"""
+class AUTOAudiTrain(AUTOBase):
+    def __init__(self, **kwargs):
+        super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{AUDI_CORE}/{AUDI_CORE}_train.txt",
+                         data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{AUDI_CORE}/train",
+                         **kwargs)
+
+"""
+cd $GROUP_SCRATCH/audi
+find test -maxdepth 1 -type f -name "*.png" -print0 | xargs -0 -I {} basename {} > $HOME/diffusion-for-auto/{RELATIVE_TEXT_FILE_BASE}/audi/audi_test.txt
+"""
+class AUTOAudiValidation(AUTOBase):
+    def __init__(self, flip_p=0.0, **kwargs):
+        super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{AUDI_CORE}/{AUDI_CORE}_val.txt",
+                         data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{AUDI_CORE}/test",
+                         flip_p=flip_p,
+                         **kwargs)
 
 #########################
 ####### NUIMAGES ########
@@ -181,13 +205,13 @@ ls train/ -1 > $HOME/diffusion-for-auto/data/autodrive/waymo_nuimages/waymo_nuim
 
 class AUTOWaymoNuimagesTrain(AUTOBase):
     def __init__(self, **kwargs):
-        super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{JOINT_CORE}/{JOINT_CORE}_train.txt",
-                         data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{JOINT_CORE}/train",
+        super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{WAYMO_NUIMG_CORE}/{WAYMO_NUIMG_CORE}_train.txt",
+                         data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{WAYMO_NUIMG_CORE}/train",
                          **kwargs)
 
 class AUTOWaymoNuimagesValidation(AUTOBase):
     def __init__(self, flip_p=0.0, **kwargs):
-        super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{JOINT_CORE}/{JOINT_CORE}_val.txt",
-                         data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{JOINT_CORE}/test",
+        super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{WAYMO_NUIMG_CORE}/{WAYMO_NUIMG_CORE}_val.txt",
+                         data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{WAYMO_NUIMG_CORE}/test",
                          flip_p=flip_p,
                          **kwargs)
