@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-#SBATCH --job-name=4G_joint_training
+#SBATCH --job-name=4G_audi_training
 #SBATCH --time=48:00:00
 #SBATCH --ntasks=1
 
@@ -18,9 +18,9 @@
 #############################
 ######### SETTINGS ##########
 #############################
-
+# Also make sure you change the CUDA_VISIBLE_DEVICES in the final command below
 # Either `waymo` or `nuimages`
-readonly DATASET_NAME="nuimages_waymo"
+readonly DATASET_NAME="audi"
 # Do not modify
 readonly CONFIG_PATH="configs/latent-diffusion/$DATASET_NAME-ldm-vq-4.yaml"
 # Do not modify
