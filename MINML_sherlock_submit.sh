@@ -1,11 +1,11 @@
 #!/bin/sh
 #
-#SBATCH --job-name=DEVGPU_joint
+#SBATCH --job-name=DEVGPU_audi
 #SBATCH --time=1:00:00
 #SBATCH --ntasks=1
 
-#SBATCH --cpus-per-task=8
-#SBATCH --mem=16GB
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=32GB
 #SBATCH -p gpu
 #SBATCH -G 1
 
@@ -14,7 +14,7 @@
 #############################
 
 # Either `waymo` or `nuimages`
-readonly DATASET_NAME="nuimages_waymo"
+readonly DATASET_NAME="audi"
 # Do not modify
 readonly CONFIG_PATH="configs/latent-diffusion/$DATASET_NAME-ldm-vq-4.yaml"
 # Do not modify
