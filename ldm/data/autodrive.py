@@ -5,6 +5,7 @@ from PIL import Image
 from torch.utils.data import Dataset
 from torchvision import transforms
 
+CROP_SQUARE_SIZE = 512
 
 class AUTOBase(Dataset):
     def __init__(self,
@@ -51,7 +52,7 @@ class AUTOBase(Dataset):
         # TODO: Remove assertions
         # CENTER CROP
         # crop = min(img.shape[0], img.shape[1])
-        crop = 256
+        crop = CROP_SQUARE_SIZE
         h, w, = img.shape[0], img.shape[1]
         img = img[(h - crop) // 2:(h + crop) // 2,
               (w - crop) // 2:(w + crop) // 2]
@@ -95,6 +96,7 @@ RELATIVE_TEXT_FILE_BASE = "data/autodrive"
 WAYMO_CORE = "waymo"
 NUIMAGES_CORE = "nuimages"
 AUDI_CORE = "audi"
+AUDI_512_CORE = "audi-512"
 WAYMO_NUIMG_CORE = f"{WAYMO_CORE}_{NUIMAGES_CORE}"
 
 """
@@ -133,12 +135,36 @@ class AUTOAudiTrain(AUTOBase):
 
 """
 cd $GROUP_SCRATCH/audi
-find test -maxdepth 1 -type f -name "*.png" -print0 | xargs -0 -I {} basename {} > $HOME/diffusion-for-auto/{RELATIVE_TEXT_FILE_BASE}/audi/audi_test.txt
+find test -maxdepth 1 -type f -name "*.png" -print0 | xargs -0 -I {} basename {} > $HOME/diffusion-for-auto/{RELATIVE_TEXT_FILE_BASE}/audi/audi_val.txt
 """
 class AUTOAudiValidation(AUTOBase):
     def __init__(self, flip_p=0.0, **kwargs):
         super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{AUDI_CORE}/{AUDI_CORE}_val.txt",
                          data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{AUDI_CORE}/test",
+                         flip_p=flip_p,
+                         **kwargs)
+        
+#############################
+########## AUDI-512 #########
+#############################
+"""
+cd $GROUP_SCRATCH/audi-512
+find train -maxdepth 1 -type f -name "*.png" -print0 | xargs -0 -I {} basename {} > $HOME/diffusion-for-auto/$RELATIVE_TEXT_FILE_BASE/audi-512/audi_train.txt
+"""
+class AUTOAudiTrain_512(AUTOBase):
+    def __init__(self, **kwargs):
+        super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{AUDI_512_CORE}/{AUDI_512_CORE}_train.txt",
+                         data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{AUDI_512_CORE}/train",
+                         **kwargs)
+
+"""
+cd $GROUP_SCRATCH/audi-512
+find test -maxdepth 1 -type f -name "*.png" -print0 | xargs -0 -I {} basename {} > $HOME/diffusion-for-auto/$RELATIVE_TEXT_FILE_BASE/audi-512/audi_val.txt
+"""
+class AUTOAudiValidation_512(AUTOBase):
+    def __init__(self, flip_p=0.0, **kwargs):
+        super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{AUDI_512_CORE}/{AUDI_512_CORE}_val.txt",
+                         data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{AUDI_512_CORE}/test",
                          flip_p=flip_p,
                          **kwargs)
 

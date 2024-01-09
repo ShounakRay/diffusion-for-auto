@@ -65,17 +65,15 @@ data:
     num_workers: 16
     wrap: false
     train:
-    # TODO: change this to the correct dataset
-      target: ldm.data.autodrive.XXX
+      target: ldm.data.autodrive.AUTOAudiTrain_512
       # params: THESE ARE FORCED IN `autodrive.py`
-        # vertical_size: 256
-        # horizontal_size: 256
+        # vertical_size: 512
+        # horizontal_size: 512
     validation:
-    # TODO: change this to the correct dataset
-      target: ldm.data.autodrive.XXX
+      target: ldm.data.autodrive.AUTOAudiValidation_512
       # params: THESE ARE FORCED IN `autodrive.py`
-        # vertical_size: 256
-        # horizontal_size: 256
+        # vertical_size: 512
+        # horizontal_size: 512
 
 lightning:
   callbacks:
