@@ -5,12 +5,11 @@ from PIL import Image
 from torch.utils.data import Dataset
 from torchvision import transforms
 
-CROP_SQUARE_SIZE = 512
-
 class AUTOBase(Dataset):
     def __init__(self,
                  txt_file,
                  data_root,
+                 CROP_SQUARE_SIZE,
                  horizontal_size=None,
                  vertical_size=None,
                  interpolation="bicubic",
@@ -35,6 +34,7 @@ class AUTOBase(Dataset):
                               "lanczos": PIL.Image.LANCZOS,
                               }[interpolation]
         self.flip = transforms.RandomHorizontalFlip(p=flip_p)
+        self.CROP_SQUARE_SIZE = CROP_SQUARE_SIZE
 
     def __len__(self):
         return self._length
@@ -52,7 +52,7 @@ class AUTOBase(Dataset):
         # TODO: Remove assertions
         # CENTER CROP
         # crop = min(img.shape[0], img.shape[1])
-        crop = CROP_SQUARE_SIZE
+        crop = self.CROP_SQUARE_SIZE
         h, w, = img.shape[0], img.shape[1]
         img = img[(h - crop) // 2:(h + crop) // 2,
               (w - crop) // 2:(w + crop) // 2]
@@ -107,6 +107,7 @@ class AUTOWaymoTrain(AUTOBase):
     def __init__(self, **kwargs):
         super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/waymo/waymo_train.txt",
                          data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/waymo/train",
+                         CROP_SQUARE_SIZE=256,
                          **kwargs)
 
 """
@@ -118,6 +119,7 @@ class AUTOWaymoValidation(AUTOBase):
         super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/waymo/waymo_val.txt",
                          data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/waymo/test",
                          flip_p=flip_p,
+                         CROP_SQUARE_SIZE=256,
                          **kwargs)
 
 #########################
@@ -131,6 +133,7 @@ class AUTOAudiTrain(AUTOBase):
     def __init__(self, **kwargs):
         super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{AUDI_CORE}/{AUDI_CORE}_train.txt",
                          data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{AUDI_CORE}/train",
+                         CROP_SQUARE_SIZE=256,
                          **kwargs)
 
 """
@@ -141,6 +144,7 @@ class AUTOAudiValidation(AUTOBase):
     def __init__(self, flip_p=0.0, **kwargs):
         super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{AUDI_CORE}/{AUDI_CORE}_val.txt",
                          data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{AUDI_CORE}/test",
+                         CROP_SQUARE_SIZE=256,
                          flip_p=flip_p,
                          **kwargs)
         
@@ -155,6 +159,7 @@ class AUTOAudiTrain_512(AUTOBase):
     def __init__(self, **kwargs):
         super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{AUDI_512_CORE}/{AUDI_512_CORE}_train.txt",
                          data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{AUDI_512_CORE}/train",
+                         CROP_SQUARE_SIZE=512,
                          **kwargs)
 
 """
@@ -165,6 +170,7 @@ class AUTOAudiValidation_512(AUTOBase):
     def __init__(self, flip_p=0.0, **kwargs):
         super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{AUDI_512_CORE}/{AUDI_512_CORE}_val.txt",
                          data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{AUDI_512_CORE}/test",
+                         CROP_SQUARE_SIZE=512,
                          flip_p=flip_p,
                          **kwargs)
 
@@ -175,12 +181,14 @@ class AUTONuimagesTrain(AUTOBase):
     def __init__(self, **kwargs):
         super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{NUIMAGES_CORE}/{NUIMAGES_CORE}_train.txt",
                          data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{NUIMAGES_CORE}/train",
+                         CROP_SQUARE_SIZE=256,
                          **kwargs)
 
 class AUTONuimagesValidation(AUTOBase):
     def __init__(self, flip_p=0.0, **kwargs):
         super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{NUIMAGES_CORE}/{NUIMAGES_CORE}_val.txt",
                          data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{NUIMAGES_CORE}/test",
+                         CROP_SQUARE_SIZE=256,
                          flip_p=flip_p,
                          **kwargs)
         
@@ -233,11 +241,13 @@ class AUTOWaymoNuimagesTrain(AUTOBase):
     def __init__(self, **kwargs):
         super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{WAYMO_NUIMG_CORE}/{WAYMO_NUIMG_CORE}_train.txt",
                          data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{WAYMO_NUIMG_CORE}/train",
+                         CROP_SQUARE_SIZE=256,
                          **kwargs)
 
 class AUTOWaymoNuimagesValidation(AUTOBase):
     def __init__(self, flip_p=0.0, **kwargs):
         super().__init__(txt_file=f"{RELATIVE_TEXT_FILE_BASE}/{WAYMO_NUIMG_CORE}/{WAYMO_NUIMG_CORE}_val.txt",
                          data_root=f"{ABSOLUTE_GROUP_SCRATCH}/shounak_files/DATASETS/{WAYMO_NUIMG_CORE}/test",
+                         CROP_SQUARE_SIZE=256,
                          flip_p=flip_p,
                          **kwargs)
